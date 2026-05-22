@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Joy Gym Equipments",
+  "description": "An ultra-premium 3D experiential gym equipment shop featuring real-time custom configuration, canvas workspace, and a tailored AI personal coach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
