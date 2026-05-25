@@ -24,6 +24,18 @@ export default function MovingProduct3D({ product }: MovingProduct3DProps) {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Set initial canvas size to ensure it renders
+    const resizeCanvas = () => {
+      const w = canvas.clientWidth || 300;
+      const h = canvas.clientHeight || 300;
+      canvas.width = w * window.devicePixelRatio;
+      canvas.height = h * window.devicePixelRatio;
+      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
     const tick = () => {
       // Rotate automatically at a comfortable speed
       angleY.current = (angleY.current + 0.6) % 360;
@@ -34,14 +46,8 @@ export default function MovingProduct3D({ product }: MovingProduct3DProps) {
     };
 
     const draw = () => {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-
-      if (canvas.width !== w * window.devicePixelRatio || canvas.height !== h * window.devicePixelRatio) {
-        canvas.width = w * window.devicePixelRatio;
-        canvas.height = h * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-      }
+      const w = canvas.clientWidth || 300;
+      const h = canvas.clientHeight || 300;
 
       ctx.clearRect(0, 0, w, h);
 
@@ -413,6 +419,7 @@ export default function MovingProduct3D({ product }: MovingProduct3DProps) {
 
     return () => {
       cancelAnimationFrame(frameId);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }, [product, materialColorHex]);
 
